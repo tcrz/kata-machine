@@ -3,19 +3,23 @@ export default function bs_list(haystack: number[], needle: number): boolean {
     let high = haystack.length - 1;
 
     while (low <= high) {
-        // console.log("before",{low, high})
         const mid = Math.floor(low + (high - low) / 2);
-        if (haystack[mid] === needle) {
+        console.log("low point =>", low);
+        console.log("mid point =>", mid);
+        console.log("high =>", high);
+        const value = haystack[mid];
+        if (value == needle) {
             return true;
-        } else if (haystack[mid] > needle) {
+        }
+        if (value > needle) {
             high = mid - 1;
         } else {
             low = mid + 1;
         }
-        // console.log("after",{low, high})
     }
+
     return false;
 }
 
-// const l = [1, 2, 3, 4, 5];
-// console.log(bs_list(l, 0));
+const l = [1, 3, 4, 69, 71, 81, 90, 99, 420, 1337, 69420];
+console.log(bs_list(l, 69420));
