@@ -7,23 +7,25 @@
  * @returns the floor number where balls start breaking, or -1 if they never break
  */
 export default function two_crystal_balls(breaks: boolean[]): number {
-    if (breaks.length === 0) return -1;
-    const jump = Math.floor(Math.sqrt(breaks.length));
-    let index = jump;
-    for (; index < breaks.length; index += jump) {
-        if (breaks[index]) {
+    if (breaks.length == 0) return -1;
+    const jumpAmount = Math.floor(Math.sqrt(breaks.length));
+    let i = jumpAmount;
+    for (; i <= breaks.length; i += jumpAmount) {
+        console.log(i);
+        if (breaks[i]) {
             break;
         }
     }
 
-    index = index - jump;
-    for (; index < breaks.length; index++) {
-        if (breaks[index]) {
-            return index;
+    i -= jumpAmount;
+
+    for (; i <= breaks.length; i++) {
+        if (breaks[i]) {
+            return i;
         }
     }
 
     return -1;
 }
 
-console.log(two_crystal_balls([]));
+console.log(two_crystal_balls([false, true, true]));
