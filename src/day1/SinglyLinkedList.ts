@@ -7,9 +7,13 @@ export default class SinglyLinkedList<T> {
 
     prepend(item: T): void {
         const newNode = new SinglyLinkedList<T>()
-        newNode.next = this as SinglyLinkedList<T>
+        // copy current head (data and next pointer)
+        newNode.data = this.data
+        newNode.next = this.next
+        // update existing head's date to new item
         this.data = item
-        this.next = newNode.next
+        // update next to point to copied current head
+        this.next = newNode
         this.length++
     }
     insertAt(item: T, idx: number): void {}
@@ -32,7 +36,7 @@ export default class SinglyLinkedList<T> {
 const list = new SinglyLinkedList<number>();
 list.append(1);
 list.append(3);
-// list.append(9);
+list.append(9);
 // list.append(80);
 list.prepend(300)
 console.log(list);
