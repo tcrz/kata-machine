@@ -1,27 +1,39 @@
 export default class SinglyLinkedList<T> {
-    public length: number;
+    public length: number = 0;
+    public data: T | null;
+    public next: SinglyLinkedList<T> | null;
 
-    
-
-    constructor() {
-    }
+    constructor() {}
 
     prepend(item: T): void {
-
-}
-    insertAt(item: T, idx: number): void {
-
-}
+        const newNode = new SinglyLinkedList<T>()
+        newNode.next = this as SinglyLinkedList<T>
+        this.data = item
+        this.next = newNode.next
+        this.length++
+    }
+    insertAt(item: T, idx: number): void {}
     append(item: T): void {
-
+        if (this.length === 0) {
+            this.data = item;
+            this.length++;
+            return;
+        }
+        let temp = this as SinglyLinkedList<T>;
+        while (temp.next) {
+            temp = temp.next;
+        }
+        const newNode = new SinglyLinkedList<T>();
+        newNode.data = item;
+        temp.next = newNode;
+        this.length++
+    }
 }
-    remove(item: T): T | undefined {
-
-}
-    get(idx: number): T | undefined {
-
-}
-    removeAt(idx: number): T | undefined {
-
-}
-}
+const list = new SinglyLinkedList<number>();
+list.append(1);
+list.append(3);
+// list.append(9);
+// list.append(80);
+list.prepend(300)
+console.log(list);
+console.log("length", list.length);
