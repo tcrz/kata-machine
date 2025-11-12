@@ -1,5 +1,3 @@
-import { isReturnStatement } from "typescript";
-
 class Node<T> {
     public data: T | null;
     public next: Node<T> | null;
@@ -52,7 +50,7 @@ export default class SinglyLinkedList<T> {
         if (idx === 0) {
             node.next = this.head;
             this.head = node;
-            this.length++
+            this.length++;
             return;
         }
         while (temp.next && i < idx - 1) {
@@ -91,20 +89,21 @@ export default class SinglyLinkedList<T> {
 
         return undefined;
     }
-    // get(idx: number): T | undefined {
-    //     let temp = this as SinglyLinkedList<T>;
-    //     let i = 0;
-    //     while (temp && i <= idx) {
-    //         console.log(temp.data);
-    //         if (i === idx) {
-    //             return temp.data!;
-    //         }
-    //         temp = temp.next!;
-    //         i++;
-    //     }
-
-    //     return undefined;
-    // }
+    get(idx: number): T | undefined {
+        if (idx < 0 || this.length < idx) {
+            return undefined;
+        }
+        let temp = this.head;
+        if (idx === 0) {
+            return temp.data!;
+        }
+        let i = 0;
+        while (temp.next && i < idx) {
+            temp = temp.next;
+            i++;
+        }
+        return temp.data ?? undefined;
+    }
     // removeAt(idx: number): T | undefined {
     //     let temp = this as SinglyLinkedList<T>;
     //     let i = 0;
@@ -132,8 +131,9 @@ export default class SinglyLinkedList<T> {
 }
 const list = new SinglyLinkedList<number>();
 list.prepend(1);
-// list.prepend(3);
+list.prepend(3);
 list.append(9);
+console.log(list.get(2))
 // list.remove(3);
 // list.remove(1);
 // list.remove(9);
