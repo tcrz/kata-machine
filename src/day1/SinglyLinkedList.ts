@@ -104,36 +104,35 @@ export default class SinglyLinkedList<T> {
         }
         return temp.data ?? undefined;
     }
-    // removeAt(idx: number): T | undefined {
-    //     let temp = this as SinglyLinkedList<T>;
-    //     let i = 0;
-    //     if (idx === 0) {
-    //         const removed = temp.data ?? undefined;
-    //         const nextNode = temp?.next;
-    //         temp = nextNode;
-    //         this.length--;
-    //         return removed;
-    //     }
-    //     while (temp.next && i < idx) {
-    //         const nextNode = temp.next;
-    //         const nextIdx = i + 1;
-    //         if (nextIdx === idx) {
-    //             temp.next = nextNode.next;
-    //             this.length--;
-    //             return nextNode.data ?? undefined;
-    //         }
-    //         temp = temp.next;
-    //         i++;
-    //     }
-
-    //     return undefined;
-    // }
+    removeAt(idx: number): T | undefined {
+        if (idx < 0 || this.length < idx) {
+            return undefined;
+        }
+        let temp = this.head;
+        if (idx === 0) {
+            const removed = temp.data ?? undefined;
+            const nextNode = temp?.next ?? null;
+            this.head = nextNode!;
+            this.length--;
+            return removed;
+        }
+        let i = 0;
+        while (temp.next && i < idx - 1) {
+            temp = temp.next;
+            i++
+        }
+        const nextNode = temp.next;
+        const removed = nextNode?.data ?? undefined;
+        temp.next = nextNode?.next ?? null;
+        this.length--
+        return removed;
+    }
 }
-const list = new SinglyLinkedList<number>();
-list.prepend(1);
-list.prepend(3);
-list.append(9);
-console.log(list.get(2))
+// const list = new SinglyLinkedList<number>();
+// list.prepend(1);
+// list.prepend(3);
+// list.append(9);
+// console.log(list.get(2));
 // list.remove(3);
 // list.remove(1);
 // list.remove(9);
@@ -141,9 +140,10 @@ console.log(list.get(2))
 // list.insertAt(777, 190);
 // list.insertAt(777, 0)
 // list.prepend(300);
-list.remove(9);
+// list.remove(9);
 // console.log(list.get(0))
-console.log(list);
 // console.log(list.removeAt(0));
+// console.log(list.removeAt(1));
+// console.log(list);
 // console.log(list);
 // console.log("length", list.length);
